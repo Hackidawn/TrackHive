@@ -3,6 +3,8 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { User, Users, Trash2, LogOut } from "lucide-react";
 
+const API = import.meta.env.VITE_API_URL;
+
 function TeamManagement() {
   const { projectId } = useParams();
   const navigate = useNavigate();
@@ -15,13 +17,14 @@ function TeamManagement() {
   const fetchTeam = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get(`http://localhost:5000/api/projects/${projectId}`, {
+
+      const res = await axios.get(`${API}/api/projects/${projectId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
       setTeamMembers(res.data.teamMembers || []);
 
-      const profile = await axios.get("http://localhost:5000/api/auth/me", {
+      const profile = await axios.get(`${API}/api/auth/me`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -43,7 +46,7 @@ function TeamManagement() {
     try {
       const token = localStorage.getItem("token");
       await axios.post(
-        `http://localhost:5000/api/projects/${projectId}/invite`,
+        `${API}/api/projects/${projectId}/invite`,
         { identifier },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -62,7 +65,7 @@ function TeamManagement() {
     try {
       const token = localStorage.getItem("token");
       await axios.delete(
-        `http://localhost:5000/api/projects/${projectId}/remove/${userIdToRemove}`,
+        `${API}/api/projects/${projectId}/remove/${userIdToRemove}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       if (userIdToRemove === currentUserId) {
@@ -82,7 +85,7 @@ function TeamManagement() {
 
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:5000/api/projects/${projectId}`, {
+      await axios.delete(`${API}/api/projects/${projectId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       navigate("/dashboard");

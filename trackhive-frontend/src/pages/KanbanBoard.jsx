@@ -15,6 +15,8 @@ import { SortableItem } from "../components/SortableItem";
 import { useParams } from "react-router-dom";
 import DroppableColumn from "../components/DroppableColumn";
 
+const API = import.meta.env.VITE_API_URL;
+
 function KanbanBoard() {
   const { projectId } = useParams();
   const [columns, setColumns] = useState({
@@ -34,10 +36,9 @@ function KanbanBoard() {
   const fetchTickets = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get(
-        `http://localhost:5000/api/tickets/project/${projectId}`,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      const res = await axios.get(`${API}/api/tickets/project/${projectId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       const grouped = { "To Do": [], "In Progress": [], "Done": [] };
       res.data.forEach((t) => grouped[t.status]?.push(t));
       setColumns(grouped);
@@ -80,7 +81,7 @@ function KanbanBoard() {
     try {
       const token = localStorage.getItem("token");
       await axios.patch(
-        `http://localhost:5000/api/tickets/${ticket._id}`,
+        `${API}/api/tickets/${ticket._id}`,
         { status: toColumn },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -92,7 +93,7 @@ function KanbanBoard() {
   const handleDelete = async (ticketId) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:5000/api/tickets/${ticketId}`, {
+      await axios.delete(`${API}/api/tickets/${ticketId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       fetchTickets();
@@ -108,7 +109,7 @@ function KanbanBoard() {
   return (
     <div className="min-h-screen bg-slate-950 p-6 text-white">
       <h1 className="text-4xl font-bold text-center mb-8">
-        🐝 TrackHive - KANDAN BOARD
+        🐝 TrackHive - KANBAN BOARD
       </h1>
       <DndContext
         sensors={sensors}

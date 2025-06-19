@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Plus } from "lucide-react";
 
+const API = import.meta.env.VITE_API_URL;
+
 function CreateProject() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -18,7 +20,7 @@ function CreateProject() {
       setLoading(true);
       const token = localStorage.getItem("token");
       await axios.post(
-        "http://localhost:5000/api/projects",
+        `${API}/api/projects`,
         { title, description },
         { headers: { Authorization: `Bearer ${token}` } }
       );

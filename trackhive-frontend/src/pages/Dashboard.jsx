@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+const API = import.meta.env.VITE_API_URL;
+
 const Dashboard = () => {
   const [projects, setProjects] = useState([]);
   const [currentUserId, setCurrentUserId] = useState("");
@@ -11,11 +13,11 @@ const Dashboard = () => {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await axios.get("http://localhost:5000/api/projects", {
+      const res = await axios.get(`${API}/api/projects`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      const profile = await axios.get("http://localhost:5000/api/auth/me", {
+      const profile = await axios.get(`${API}/api/auth/me`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -36,7 +38,7 @@ const Dashboard = () => {
 
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:5000/api/projects/${projectId}`, {
+      await axios.delete(`${API}/api/projects/${projectId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

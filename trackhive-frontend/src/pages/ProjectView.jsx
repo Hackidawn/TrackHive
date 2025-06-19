@@ -8,6 +8,8 @@ import {
   Search,
 } from "lucide-react";
 
+const API = import.meta.env.VITE_API_URL;
+
 function ProjectView() {
   const { projectId } = useParams();
   const navigate = useNavigate();
@@ -17,7 +19,7 @@ function ProjectView() {
     const fetchProject = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get(`http://localhost:5000/api/projects/${projectId}`, {
+        const res = await axios.get(`${API}/api/projects/${projectId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setProject(res.data);

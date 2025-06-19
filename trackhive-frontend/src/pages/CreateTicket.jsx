@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 
+const API = import.meta.env.VITE_API_URL;
+
 function CreateTicket() {
   const { projectId } = useParams();
   const navigate = useNavigate();
@@ -18,7 +20,7 @@ function CreateTicket() {
     const fetchUsers = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get(`http://localhost:5000/api/projects/${projectId}`, {
+        const res = await axios.get(`${API}/api/projects/${projectId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -49,7 +51,7 @@ function CreateTicket() {
     };
 
     try {
-      await axios.post("http://localhost:5000/api/tickets", payload, {
+      await axios.post(`${API}/api/tickets`, payload, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

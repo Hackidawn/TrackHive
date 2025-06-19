@@ -3,6 +3,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Pencil, Trash2, Save } from "lucide-react";
 
+const API = import.meta.env.VITE_API_URL;
+
 function Account() {
   const [user, setUser] = useState(null);
   const [projectCount, setProjectCount] = useState(0);
@@ -14,11 +16,11 @@ function Account() {
     try {
       const token = localStorage.getItem("token");
 
-      const userRes = await axios.get("http://localhost:5000/api/auth/me", {
+      const userRes = await axios.get(`${API}/api/auth/me`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      const projectRes = await axios.get("http://localhost:5000/api/projects", {
+      const projectRes = await axios.get(`${API}/api/projects`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -37,7 +39,7 @@ function Account() {
     try {
       const token = localStorage.getItem("token");
 
-      await axios.delete("http://localhost:5000/api/users/delete", {
+      await axios.delete(`${API}/api/users/delete`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -53,7 +55,7 @@ function Account() {
     try {
       const token = localStorage.getItem("token");
       await axios.patch(
-        "http://localhost:5000/api/users/update",
+        `${API}/api/users/update`,
         { name: newName },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -73,10 +75,10 @@ function Account() {
 
   if (!user) return <div className="p-6 text-white">Loading...</div>;
 
-const creationDate =
-  user.createdAt && !isNaN(Date.parse(user.createdAt))
-    ? new Date(user.createdAt).toLocaleDateString()
-    : "Unknown";
+  const creationDate =
+    user.createdAt && !isNaN(Date.parse(user.createdAt))
+      ? new Date(user.createdAt).toLocaleDateString()
+      : "Unknown";
 
   return (
     <div className="min-h-screen bg-slate-950 text-white p-6 flex justify-center items-start">

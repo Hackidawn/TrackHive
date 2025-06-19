@@ -3,6 +3,8 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Search, Filter } from "lucide-react";
 
+const API = import.meta.env.VITE_API_URL;
+
 function FilterSearch() {
   const { projectId } = useParams();
   const [tickets, setTickets] = useState([]);
@@ -12,12 +14,9 @@ function FilterSearch() {
   const fetchFiltered = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get(
-        `http://localhost:5000/api/tickets/project/${projectId}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const res = await axios.get(`${API}/api/tickets/project/${projectId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
       let filtered = res.data;
       if (status) filtered = filtered.filter((t) => t.status === status);
