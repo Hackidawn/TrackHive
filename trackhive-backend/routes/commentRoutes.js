@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Comment = require("../models/Comment");
-const authMiddleware = require("../middleware/auth");
+const protect = require("../middleware/authMiddleware");
 const User = require("../models/User");
 
 // GET all comments for a ticket
