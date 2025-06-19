@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Comment = require("../models/Comment");
-const protect = require("../middleware/authMiddleware");
+const authMiddleware = require("../middleware/authMiddleware"); // ✅ Rename for consistency
 const User = require("../models/User");
 
 // GET all comments for a ticket
