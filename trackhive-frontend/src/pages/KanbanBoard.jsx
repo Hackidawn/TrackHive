@@ -14,6 +14,7 @@ import {
 import { SortableItem } from "../components/SortableItem";
 import { useParams } from "react-router-dom";
 import DroppableColumn from "../components/DroppableColumn";
+import TicketComments from "../components/TicketComments"; // ✅ NEW
 
 const API = import.meta.env.VITE_API_URL;
 
@@ -143,8 +144,9 @@ function KanbanBoard() {
                           onDelete={() => handleDelete(task._id)}
                         />
                         {expandedTicketId === task._id && (
-                          <div className="mt-2 text-sm bg-slate-800 p-3 rounded-lg border border-slate-600 text-slate-300">
-                            {task.description}
+                          <div className="mt-2 bg-slate-800 p-4 rounded-lg border border-slate-600 text-slate-300 space-y-4">
+                            <p>{task.description}</p>
+                            <TicketComments ticketId={task._id} /> {/* ✅ Comments Section */}
                           </div>
                         )}
                       </div>
