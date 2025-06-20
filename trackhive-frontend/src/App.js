@@ -11,7 +11,7 @@ import CreateProject from "./pages/CreateProject";
 import CreateTicket from "./pages/CreateTicket";
 import KanbanBoard from "./pages/KanbanBoard";
 import FilterSearch from "./pages/FilterSearch";
-import TicketComments from "./pages/TicketComments";
+// import TicketComments from "./pages/TicketComments";
 import TeamManagement from "./pages/TeamManagement";
 import ProjectView from "./pages/ProjectView";
 import Account from "./pages/Account";
