@@ -3,7 +3,7 @@ import axios from "axios";
 
 const API = import.meta.env.VITE_API_URL;
 
-function TicketComments({ ticketId }) {
+function CommentBox({ ticketId }) {
   const [comments, setComments] = useState([]);
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
@@ -76,4 +76,4 @@ function TicketComments({ ticketId }) {
   );
 }
 
-export default TicketComments;
+export default CommentBox;
